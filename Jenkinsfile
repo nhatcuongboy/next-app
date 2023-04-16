@@ -2,7 +2,8 @@ pipeline {
      agent any
      environment {     
         DOCKERHUB_CREDENTIALS= credentials('cb7dd0ab-e993-42ab-aac3-b25173580012');
-        DOCKERHUB_REPOSITORY= 'next-app'     
+        DOCKERHUB_REPOSITORY= 'next-app'
+        DOCKER_CONTAINER_NAME= 'next-app-container'     
      }  
      stages {
         // stage("Build") {
@@ -38,8 +39,8 @@ pipeline {
         }   
         stage('Run Docker Image') {         
           steps {    
-            sh 'sudo docker rm -f next-app-final'
-            sh 'sudo docker run --name next-app-final -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
+            sh 'sudo docker rm -f $DOCKER_CONTAINER_NAME'
+            sh 'sudo docker run --name $DOCKER_CONTAINER_NAME -d --restart unless-stopped -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
             echo 'Run Image Completed'       
           }           
         }     
