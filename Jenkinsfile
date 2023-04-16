@@ -39,9 +39,9 @@ pipeline {
         }   
         stage('Run Docker Image') {         
           steps {    
-            // sh 'sudo docker rm -f $DOCKER_CONTAINER_NAME'
-            sh 'sudo docker run -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
-            sh 'sudo docker system prune -a --volumes'
+            sh 'sudo docker stop $DOCKER_CONTAINER_NAME || true'
+            sh 'sudo docker run --name $DOCKER_CONTAINER_NAME -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
+            sh 'sudo docker system prune -f'
             echo 'Run Image Completed'       
           }           
         }     
