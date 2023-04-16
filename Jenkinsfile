@@ -33,8 +33,15 @@ pipeline {
         stage('Push Image to Docker Hub') {         
           steps {    
             // sh 'sudo docker tag $DOCKERHUB_REPOSITORY:$BUILD_NUMBER $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                        
-            sh 'sudo docker push $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
+            sh 'sudo docker push $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'
+            sh 'sudo docker rmi $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
             echo 'Push Image Completed'       
+          }           
+        }   
+        stage('Pull Image from Docker Hub') {         
+          steps {    
+            sh 'sudo docker pull $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'
+            echo 'Pull Image Completed'       
           }           
         }   
         stage('Run Docker Image') {         
