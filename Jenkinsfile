@@ -34,21 +34,22 @@ pipeline {
           steps {    
             // sh 'sudo docker tag $DOCKERHUB_REPOSITORY:$BUILD_NUMBER $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                        
             sh 'sudo docker push $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'
-            sh 'sudo docker rmi $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
+            // sh 'sudo docker rmi $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
             echo 'Push Image Completed'       
           }           
         }   
-        stage('Pull Image from Docker Hub') {         
-          steps {    
-            sh 'sudo docker pull $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'
-            echo 'Pull Image Completed'       
-          }           
-        }   
+        // stage('Pull Image from Docker Hub') {         
+        //   steps {    
+        //     sh 'sudo docker pull $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'
+        //     echo 'Pull Image Completed'       
+        //   }           
+        // }   
         stage('Run Docker Image') {         
           steps {    
             sh 'sudo docker stop $DOCKER_CONTAINER_NAME || true'
             sh 'sudo docker run --name $DOCKER_CONTAINER_NAME -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
             sh 'sudo docker system prune -f'
+            // sh 'sudo docker rmi -f $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER-1'
             echo 'Run Image Completed'       
           }           
         }     
