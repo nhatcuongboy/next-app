@@ -2,11 +2,19 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { GetStaticProps } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
-  const info = process.env.REACT_APP_VERSION_INFO;
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      info: process.env.REACT_APP_VERSION_INFO
+    }
+  };
+}
+
+export default function Home({ info }: any) {
   return (
     <>
       <Head>
@@ -20,7 +28,7 @@ export default function Home() {
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>pages/index.tsx</code>
-            {info && <code className={styles.code}>{info}</code>}
+            <code className={styles.code}>{info}</code>
           </p>
           <div>
             <a
