@@ -49,7 +49,7 @@ pipeline {
             sh 'sudo docker stop $DOCKER_CONTAINER_NAME || true'
             sh 'sudo docker run --name $DOCKER_CONTAINER_NAME -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
             sh 'sudo docker system prune -f'
-            sh 'sudo docker rmi -f $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:${BUILD_NUMBER-1}'
+            sh 'sudo docker image prune -a --force'
             echo 'Run Image Completed'       
           }           
         }     
