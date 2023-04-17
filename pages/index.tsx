@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const info = process.env.REACT_APP_VERSION_INFO;
   return (
     <>
       <Head>
@@ -19,6 +20,7 @@ export default function Home() {
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>pages/index.tsx</code>
+            {info && <code className={styles.code}>{info}</code>}
           </p>
           <div>
             <a

@@ -1,4 +1,6 @@
 FROM node:lts-alpine AS builder
+ARG version_info
+ENV REACT_APP_VERSION_INFO=${version_info}
 WORKDIR /app
 COPY ["package.json", "./"]
 RUN npm install

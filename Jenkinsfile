@@ -20,7 +20,7 @@ pipeline {
         // }
         stage('Build docker image') {
             steps {
-                sh 'sudo docker build -t $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER .'
+                sh 'sudo docker build -t $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER --build-arg version_info=$BUILD_NUMBER .'
                 echo 'Build Image Completed'
             }
         }
