@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      info: process.env.REACT_APP_VERSION_INFO
+      info: process.env.REACT_APP_VERSION_INFO || 0
     }
   };
 }
