@@ -1,7 +1,7 @@
 import Layout from '@/components/layout';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head'
-import React, { ReactElement } from 'react';
+import React, { ReactElement, Suspense } from 'react';
 import { NextPageWithLayout } from './_app';
 
 const Test: NextPageWithLayout = () => {
@@ -31,8 +31,13 @@ Test.getLayout = function getLayout(page: ReactElement) {
 
 export default Test;
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//     return {
-//         props: {}
-//     };
-// }
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    await new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(true)
+        }, 3000);
+    })
+    return {
+        props: {}
+    };
+}
