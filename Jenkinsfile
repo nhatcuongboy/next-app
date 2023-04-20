@@ -20,7 +20,8 @@ pipeline {
         // }
         stage('Build docker image') {
             steps {
-                sh 'sudo docker build -t $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER --build-arg version_info=$BUILD_NUMBER .'
+                // sh 'sudo docker build -t $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER --build-arg version_info=$BUILD_NUMBER .'
+                sh 'sudo docker build -t $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER .'
                 echo 'Build Image Completed'
             }
         }
@@ -48,8 +49,8 @@ pipeline {
           steps {    
             sh 'sudo docker stop $DOCKER_CONTAINER_NAME || true'
             sh 'sudo docker run --name $DOCKER_CONTAINER_NAME -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
-            sh 'sudo docker system prune -f'
-            sh 'sudo docker image prune -a -f'
+            // sh 'sudo docker system prune -f'
+            // sh 'sudo docker image prune -a -f'
             echo 'Run Image Completed'       
           }           
         }     

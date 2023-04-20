@@ -1,8 +1,10 @@
+import Layout from '@/components/layout';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head'
-import React from 'react';
+import React, { ReactElement } from 'react';
+import { NextPageWithLayout } from './_app';
 
-const Test = () => {
+const Test: NextPageWithLayout = () => {
     return (
         <>
             <Head>
@@ -19,10 +21,18 @@ const Test = () => {
     );
 };
 
+Test.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout>
+    )
+}
+
 export default Test;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    return {
-        props: {}
-    };
-}
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//     return {
+//         props: {}
+//     };
+// }

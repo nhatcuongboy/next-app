@@ -3,6 +3,11 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
+import { ReactElement, useEffect } from 'react'
+import { NextPageWithLayout } from './_app'
+import Layout from '@/components/layout'
+import Header from '@/components/header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +19,11 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 }
 
-export default function Home({ info }: any) {
+const Home = ({ info }: NextPageWithLayout & { info: any }) => {
+  const router = useRouter()
+  // useEffect(() => {
+  //   console.log('Home page')
+  // }, [])
   return (
     <>
       <Head>
@@ -26,9 +35,8 @@ export default function Home({ info }: any) {
       <main className={styles.main}>
         <div className={styles.description}>
           <p>
-            Get started by editing&nbsp;
+            [{info}] Get started by editing&nbsp;
             <code className={styles.code}>pages/index.tsx</code>
-            <code className={styles.code}>{info}</code>
           </p>
           <div>
             <a
@@ -48,7 +56,7 @@ export default function Home({ info }: any) {
             </a>
           </div>
         </div>
-
+        <button onClick={() => router.push('/test')}>Go to test page</button>
         <div className={styles.center}>
           <Image
             className={styles.logo}
@@ -122,3 +130,13 @@ export default function Home({ info }: any) {
     </>
   )
 }
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  )
+}
+
+export default Home;
