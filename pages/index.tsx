@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
-import { ReactElement, useEffect } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { NextPageWithLayout } from './_app'
 import Layout from '@/components/layout'
 import Header from '@/components/header'
@@ -15,16 +15,16 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       info: process.env.REACT_APP_VERSION_INFO || 0,
-      host: window.location.host
     }
   };
 }
 
-const Home = ({ info, host }: NextPageWithLayout & { info: any, host: any }) => {
-  const router = useRouter()
-  // useEffect(() => {
-  //   console.log('Home page')
-  // }, [])
+const Home = ({ info }: NextPageWithLayout & { info: any }) => {
+  const router = useRouter();
+  const [host, setHost] = useState<any>(null);
+  useEffect(() => {
+    setHost(window.location.host);
+  }, [])
   return (
     <>
       <Head>
