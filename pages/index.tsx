@@ -24,6 +24,7 @@ const Home = ({ info }: NextPageWithLayout & { info: any }) => {
   // useEffect(() => {
   //   console.log('Home page')
   // }, [])
+  let host = window.location.host;
   return (
     <>
       <Head>
@@ -56,6 +57,7 @@ const Home = ({ info }: NextPageWithLayout & { info: any }) => {
             </a>
           </div>
         </div>
+        <h3>Host: {host}</h3>
         <button onClick={() => router.push('/test')}>Go to test page</button>
         <div className={styles.center}>
           <Image
