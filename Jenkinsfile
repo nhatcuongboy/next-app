@@ -3,7 +3,8 @@ pipeline {
      environment {     
         DOCKERHUB_CREDENTIALS= credentials('cb7dd0ab-e993-42ab-aac3-b25173580012');
         DOCKERHUB_REPOSITORY= 'next-app'
-        DOCKER_CONTAINER_NAME= 'next-app-container'     
+        DOCKER_CONTAINER_NAME= 'next-app-container'   
+        DOCKER_SWARM_SERVICE= 'next-app-swarm'  
      }  
      stages {
         // stage("Build") {
@@ -47,9 +48,10 @@ pipeline {
         // }   
         stage('Run Docker Image') {         
           steps {    
-            sh 'sudo docker stop $DOCKER_CONTAINER_NAME || true'
+            // sh 'sudo docker stop $DOCKER_CONTAINER_NAME || true'
             // sh 'sudo docker run --name $DOCKER_CONTAINER_NAME -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
-            sh 'sudo docker service create --replicas 3 -p 3004:3000 --name next-app-swarm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'
+            sh 'sudo docker service create --replicas 3 -p 3004:3000 --name $DOCKER_SWARM_SERVICE $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER || true'
+            sh 'sudo docker service update --image=$DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER $DOCKER_SWARM_SERVICE'
             sh 'sudo docker system prune -f'
             sh 'sudo docker image prune -a -f'
             echo 'Run Image Completed'       
