@@ -14,17 +14,17 @@ const inter = Inter({ subsets: ['latin'] })
 export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      info: process.env.REACT_APP_VERSION_INFO || 0
+      info: process.env.REACT_APP_VERSION_INFO || 0,
+      host: window.location.host
     }
   };
 }
 
-const Home = ({ info }: NextPageWithLayout & { info: any }) => {
+const Home = ({ info, host }: NextPageWithLayout & { info: any, host: any }) => {
   const router = useRouter()
   // useEffect(() => {
   //   console.log('Home page')
   // }, [])
-  let host = window.location.host;
   return (
     <>
       <Head>
