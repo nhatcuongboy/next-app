@@ -48,7 +48,8 @@ pipeline {
         stage('Run Docker Image') {         
           steps {    
             sh 'sudo docker stop $DOCKER_CONTAINER_NAME || true'
-            sh 'sudo docker run --name $DOCKER_CONTAINER_NAME -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
+            // sh 'sudo docker run --name $DOCKER_CONTAINER_NAME -d -p 3003:3000 --rm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER'                 
+            sh 'sudo docker service create --replicas 3 3004:3000 --name next-app-swarm $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER --with-registry-auth'
             // sh 'sudo docker system prune -f'
             // sh 'sudo docker image prune -a -f'
             echo 'Run Image Completed'       
