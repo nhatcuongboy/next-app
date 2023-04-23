@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       setIsLoading(false)
     });
 
-  }, [Router])
+  }, [Router]);
 
 
   return getLayout(

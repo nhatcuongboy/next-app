@@ -6,6 +6,10 @@ describe("Calculator", () => {
     it("renders a calculator", () => {
         render(<Calculator />);
         // check if all components are rendered
+        const heading = screen.getByRole('heading', {
+            name: /calculator/i,
+        })
+        expect(heading).toBeInTheDocument()
         expect(screen.getByTestId("result")).toBeInTheDocument();
         expect(screen.getByTestId("num1")).toBeInTheDocument();
         expect(screen.getByTestId("num2")).toBeInTheDocument();

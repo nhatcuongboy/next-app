@@ -19,6 +19,12 @@ pipeline {
         //         sh "sudo cp -r ${WORKSPACE}/out/ /usr/share/nginx/html/next-app/"
         //     }
         // }
+        // stage('Unit test') {
+        //     steps {
+        //         sh 'sudo yarn test:ci'
+        //         echo 'Unit Test Completed'
+        //     }
+        // }
         stage('Build docker image') {
             steps {
                 // sh 'sudo docker build -t $DOCKERHUB_CREDENTIALS_USR/$DOCKERHUB_REPOSITORY:$BUILD_NUMBER --build-arg version_info=$BUILD_NUMBER .'
