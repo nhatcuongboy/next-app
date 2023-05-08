@@ -6,7 +6,6 @@ import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useState } from 'react'
 import { NextPageWithLayout } from './_app'
-import Header from '@/components/header'
 
 const inter = Inter({ subsets: ['latin'] })
 
