@@ -1,8 +1,8 @@
-import Layout from '@/components/layout';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head'
 import React, { ReactElement, Suspense } from 'react';
 import { NextPageWithLayout } from './_app';
+import { MainLayout } from '@/components/layout';
 
 const Demo: NextPageWithLayout = () => {
     return (
@@ -21,13 +21,7 @@ const Demo: NextPageWithLayout = () => {
     );
 };
 
-Demo.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout>
-    )
-}
+Demo.Layout = MainLayout;
 
 export default Demo;
 
